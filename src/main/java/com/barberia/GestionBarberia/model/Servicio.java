@@ -12,8 +12,8 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 @Entity
+@Builder
 public class Servicio {
 
     @Id
