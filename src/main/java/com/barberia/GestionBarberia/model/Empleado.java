@@ -24,6 +24,6 @@ public class Empleado extends User{
 
     private LocalDate fechaContratacion;
 
-    private BigDecimal porcentajeComisión;
+    private BigDecimal porcentajeComision;
 
 }

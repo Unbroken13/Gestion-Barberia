@@ -18,6 +18,7 @@ public class CustomerResponseDTO {
 
     private String nombre;
     private String apellido;
+    private String username;
     private String telefono;
     private String email;
     private LocalDate fechaNacimiento;
