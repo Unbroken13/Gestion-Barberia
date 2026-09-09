@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
 
-@RestControllerAdvice // 1. Convierte esta clase en el "paraguas" interceptor global.
+@RestControllerAdvice (basePackages = "com.barberia.GestionBarberia.controller") // 1. Convierte esta clase en el "paraguas" interceptor global.
 public class GlobalExceptionHandler {
 
     // 2. Le decimos a Spring: "Si alguien lanza un RuntimeException, ejecuta este metodo".
