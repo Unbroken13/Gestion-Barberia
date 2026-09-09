@@ -4,6 +4,7 @@ package com.barberia.GestionBarberia.model;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -22,6 +23,9 @@ public class Turno {
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private EstadoTurno estado;
+
+    @Column(nullable = false)
+    private LocalDateTime fechaHora;
 
     // Un Cliente puede tener MUCHOS turnos, pero este Turno pertenece a UN solo Cliente
     @OneToMany
