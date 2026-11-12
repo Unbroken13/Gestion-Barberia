@@ -35,7 +35,7 @@ public class TurnoService implements ITurnoService{
                 .orElseThrow( ()-> new RecursoNoEncontradoException("No se encontró el cliente con ID: "+ dto.getClienteId()));
         // 2. Validar que el Barbero exista
         Empleado barbero = empleadoRepo.findById(dto.getEmpleadoId())
-                .orElseThrow(()-> new RecursoNoEncontradoException("No se encontró el cliente con ID: " + dto.getEmpleadoId()));
+                .orElseThrow(()-> new RecursoNoEncontradoException("No se encontró el empleado con ID: " + dto.getEmpleadoId()));
 
         // TODO: algoritmo de validación de disponibilidad del barbero en el futuro
         // crear: DisponibilidadNoValidaException
@@ -75,6 +75,7 @@ public class TurnoService implements ITurnoService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public TurnoResponseDTO buscarPorID(Long id) {
         // 1 y 2: Buscamos pasándole el Long directamente, y si no existe, lanzamos la excepción
         Turno turnoEncontrado = turnoRepo.findById(id)
@@ -86,6 +87,7 @@ public class TurnoService implements ITurnoService{
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<TurnoResponseDTO> listarTurnos() {
         return turnoRepo.findAll().stream().map(TurnoMapper::toDTO).toList();
     }

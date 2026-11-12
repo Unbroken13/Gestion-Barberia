@@ -29,7 +29,7 @@ public class EmpleadoService implements IEmpleadoService{
     @Override
     public EmpleadoResponseDTO buscarPorID(Long id) {
         Empleado empleadoEncontrado = empleadoRepo.findById(id)
-                .orElseThrow(()-> new RecursoNoEncontradoException("No se encontró el id: " + id));
+                .orElseThrow(()-> new RecursoNoEncontradoException("No se encontró el empleado con el id: " + id));
 
         return EmpleadoMapper.toDTO(empleadoEncontrado);
     }
@@ -37,7 +37,7 @@ public class EmpleadoService implements IEmpleadoService{
     @Override
     public void eliminarPorID(Long id) {
         if(!empleadoRepo.existsById(id)){
-            throw new RecursoNoEncontradoException("No se encontró el id: " + id);
+            throw new RecursoNoEncontradoException("No se encontró el empleado con el id: " + id);
         }
         empleadoRepo.deleteById(id);
 
@@ -51,7 +51,7 @@ public class EmpleadoService implements IEmpleadoService{
     @Override
     public EmpleadoResponseDTO actualizarEmpleado(Long id, EmpleadoRequestDTO empleadoDto) {
         Empleado empleadoEncontrado = empleadoRepo.findById(id)
-                .orElseThrow(()-> new RecursoNoEncontradoException("No se encontró el id: " + id) );
+                .orElseThrow(()-> new RecursoNoEncontradoException("No se encontró el empleado con el id: " + id) );
         empleadoEncontrado.setNombre(empleadoDto.getNombre());
         empleadoEncontrado.setApellido(empleadoDto.getApellido());
         empleadoEncontrado.setUsername(empleadoDto.getUsername());
@@ -63,7 +63,9 @@ public class EmpleadoService implements IEmpleadoService{
         empleadoEncontrado.setEspecialidad(empleadoDto.getEspecialidad());
         empleadoEncontrado.setFechaContratacion(empleadoDto.getFechaContratacion());
         empleadoEncontrado.setPorcentajeComision(empleadoDto.getPorcentajeComision());
-        empleadoEncontrado.setActivo(empleadoDto.getActivo());
+        if(empleadoDto.getActivo() != null) {
+            empleadoEncontrado.setActivo(empleadoDto.getActivo());
+        }
 
         return EmpleadoMapper.toDTO(empleadoRepo.save(empleadoEncontrado));
 

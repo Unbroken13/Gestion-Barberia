@@ -3,6 +3,7 @@ package com.barberia.GestionBarberia.controller;
 import com.barberia.GestionBarberia.DTO.EmpleadoRequestDTO;
 import com.barberia.GestionBarberia.DTO.EmpleadoResponseDTO;
 import com.barberia.GestionBarberia.service.IEmpleadoService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -20,7 +21,7 @@ public class EmpleadoController {
     private final IEmpleadoService empleadoServi;
 
     @PostMapping
-    public ResponseEntity<EmpleadoResponseDTO> crearEmpleado(@RequestBody EmpleadoRequestDTO requestDTO){
+    public ResponseEntity<EmpleadoResponseDTO> crearEmpleado(@Valid @RequestBody EmpleadoRequestDTO requestDTO){
         EmpleadoResponseDTO newEmpleado = empleadoServi.crearEmpleado(requestDTO);
 
         return new ResponseEntity<>(newEmpleado, HttpStatus.CREATED);
@@ -42,7 +43,7 @@ public class EmpleadoController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<EmpleadoResponseDTO> actualizarEmpleadoPorID(@PathVariable Long id, @RequestBody EmpleadoRequestDTO dto){
+    public ResponseEntity<EmpleadoResponseDTO> actualizarEmpleadoPorID(@PathVariable Long id,@Valid  @RequestBody EmpleadoRequestDTO dto){
         EmpleadoResponseDTO actualizarEmpleado = empleadoServi.actualizarEmpleado(id, dto);
 
         return new ResponseEntity<>(actualizarEmpleado, HttpStatus.OK);

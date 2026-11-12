@@ -3,9 +3,8 @@ package com.barberia.GestionBarberia.controller;
 
 import com.barberia.GestionBarberia.DTO.ServicioRequestDTO;
 import com.barberia.GestionBarberia.DTO.ServicioResponseDTO;
-import com.barberia.GestionBarberia.model.Servicio;
 import com.barberia.GestionBarberia.service.IServicioService;
-import com.barberia.GestionBarberia.service.ServicioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +23,7 @@ public class ServicioController {
     // 1. Llama al metodo correspondiente de tu 'servicioService' pasándole el requestDTO
     // y guarda el resultado en una variable tipo ServicioResponseDTO.
     @PostMapping
-    public ResponseEntity<ServicioResponseDTO> crearServicio(@RequestBody ServicioRequestDTO requestDto){
+    public ResponseEntity<ServicioResponseDTO> crearServicio(@Valid @RequestBody ServicioRequestDTO requestDto){
         ServicioResponseDTO nuevoServicio = servi.crearServicio(requestDto);
 
         // 2. Retorna el ResponseEntity con estado HTTP 201 (CREATED) y el DTO en el cuerpo (body).
@@ -52,7 +51,7 @@ public class ServicioController {
 
     // Endpoint para actualizar un servicio (PUT)
     @PutMapping("/{id}")
-    public ResponseEntity<ServicioResponseDTO> actualizarServicioPorID(@PathVariable Long id, @RequestBody ServicioRequestDTO requestDTO){
+    public ResponseEntity<ServicioResponseDTO> actualizarServicioPorID(@PathVariable Long id,@Valid  @RequestBody ServicioRequestDTO requestDTO){
         ServicioResponseDTO actualizarServicio = servi.actualizarServicio(id, requestDTO);
         return new ResponseEntity<>(actualizarServicio, HttpStatus.OK);
     }

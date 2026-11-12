@@ -37,7 +37,7 @@ public class ServicioService implements IServicioService{
 
         // 1 y 2: Buscamos pasándole el Long directamente, y si no existe, lanzamos la excepción
         Servicio servicioEncontrado = serviRepo.findById(id)
-                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontro el ID."));
+                .orElseThrow(() -> new RecursoNoEncontradoException("No se encontro el ID." + id));
         // 3: Si pasó la línea anterior, significa que sí existe.
         // Usamos nuestro Mapper estático para convertir la Entidad en DTO y retornarla.
 
@@ -65,7 +65,7 @@ public class ServicioService implements IServicioService{
     public ServicioResponseDTO actualizarServicio(Long id, ServicioRequestDTO servicioDTO) {
         //buscamos si existe mi servicio
         Servicio serviEncontrado = serviRepo.findById(id)
-                .orElseThrow(() -> new RecursoNoEncontradoException("Servicio no encontrado"));
+                .orElseThrow(() -> new RecursoNoEncontradoException("Servicio no encontrado" + id));
 
         //Si el ID se encontro, modificamos (settear) los datos:
         serviEncontrado.setNombre(servicioDTO.getNombre());

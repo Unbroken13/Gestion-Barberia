@@ -5,12 +5,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter @Setter
 @Builder
 @Table(name="turnos")
 @ToString(exclude = "detalleTurnos")
@@ -27,8 +28,7 @@ public class Turno {
     @Column(nullable = false)
     private LocalDateTime fechaHora;
 
-    // Un Cliente puede tener MUCHOS turnos, pero este Turno pertenece a UN solo Cliente
-    @OneToMany
+    // Muchos turnos pertenecen a UN cliente  ->  @ManyToOne
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "customer_id", nullable = false)
     private Customer customer;
@@ -40,7 +40,7 @@ public class Turno {
 
 
     @OneToMany(mappedBy = "turno", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<DetalleTurno> detalleTurnos;
+    private List<DetalleTurno> detalleTurnos = new ArrayList<>();
 
 
 }
