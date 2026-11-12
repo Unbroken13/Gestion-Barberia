@@ -14,6 +14,7 @@ public class CustomerMapper {
         return Customer.builder()
                 .nombre(dto.getNombre())
                 .apellido(dto.getApellido())
+                .username(dto.getUsername())
                 .password(dto.getPassword())
                 .telefono(dto.getTelefono())
                 .email(dto.getEmail())
@@ -29,9 +30,14 @@ public class CustomerMapper {
                 .id(entity.getId())
                 .nombre(entity.getNombre())
                 .apellido(entity.getApellido())
+                .username(entity.getUsername())
                 .telefono(entity.getTelefono())
                 .email(entity.getEmail())
                 .fechaNacimiento(entity.getFechaNacimiento())
+                .puntosFidelidad(entity.getPuntosFidelidad())
+                .notasPreferidas(entity.getNotasPreferidas())
+                .abandonoDeTurnos(entity.getAbandonoDeTurnos())
+                .activo(entity.getActivo())
                 .build();
     }
 

@@ -4,6 +4,7 @@ import com.barberia.GestionBarberia.DTO.CustomerRequestDTO;
 import com.barberia.GestionBarberia.DTO.CustomerResponseDTO;
 import com.barberia.GestionBarberia.service.CustomerService;
 import com.barberia.GestionBarberia.service.ICustomerService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,7 +24,7 @@ public class CustomerController {
     // 1. Llama al metodo correspondiente de tu 'CustomerService' pasándole el requestDTO
     // y guarda el resultado en una variable tipo CustomeroResponseDTO.
     @PostMapping
-    public ResponseEntity<CustomerResponseDTO> crearCustomer(@RequestBody CustomerRequestDTO requesDto){
+    public ResponseEntity<CustomerResponseDTO> crearCustomer(@Valid @RequestBody CustomerRequestDTO requesDto){
         CustomerResponseDTO newCustomer = customerServi.crearCustomer(requesDto);
 
         // 2. Retorna el ResponseEntity con estado HTTP 201 (CREATED) y el DTO en el cuerpo (body).
@@ -56,7 +57,7 @@ public class CustomerController {
     //(PUT)
     // Endpoint para actualizar un servicio
     @PutMapping("/{id}")
-    public ResponseEntity<CustomerResponseDTO> actualizarCustomerPorID(@PathVariable Long id, @RequestBody CustomerRequestDTO requestDTO){
+    public ResponseEntity<CustomerResponseDTO> actualizarCustomerPorID(@PathVariable Long id,@Valid  @RequestBody CustomerRequestDTO requestDTO){
         CustomerResponseDTO actualizarCustomer = customerServi.actualizarCustomer(id, requestDTO);
 
         return new ResponseEntity<>(actualizarCustomer, HttpStatus.OK);

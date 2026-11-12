@@ -29,7 +29,7 @@ public class TurnoResponseDTO {
     private List<DetallesTurnoResponseDTO> detalles;
 
     private BigDecimal precioTotal; //calcular en la logica back
-    private Integer duracioTotalMinutos; //calcular en la logica back
+    private Integer duracionTotalMinutos; //calcular en la logica back
 
 
 }

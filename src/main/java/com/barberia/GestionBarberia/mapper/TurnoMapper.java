@@ -47,7 +47,7 @@ public class TurnoMapper {
                         .map(TurnoMapper::detallesTurnoToDTO)
                         .collect(Collectors.toList()))
                 .precioTotal(precioTotal)
-                .duracioTotalMinutos(duracionTotal)
+                .duracionTotalMinutos(duracionTotal)
                 .build();
     }
 

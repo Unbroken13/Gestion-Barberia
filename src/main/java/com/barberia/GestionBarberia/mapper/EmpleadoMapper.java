@@ -1,6 +1,6 @@
 package com.barberia.GestionBarberia.mapper;
 
-import com.barberia.GestionBarberia.DTO.CustomerRequestDTO;
+
 import com.barberia.GestionBarberia.DTO.EmpleadoRequestDTO;
 import com.barberia.GestionBarberia.DTO.EmpleadoResponseDTO;
 import com.barberia.GestionBarberia.model.Empleado;
@@ -23,7 +23,7 @@ public class EmpleadoMapper {
                 .especialidad(dto.getEspecialidad())
                 .fechaContratacion(dto.getFechaContratacion())
                 .porcentajeComision(dto.getPorcentajeComision())
-                .activo(dto.getActivo())
+                .activo(dto.getActivo() != null ? dto.getActivo() : Boolean.TRUE)
                 .build();
     }
 

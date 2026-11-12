@@ -5,6 +5,7 @@ import com.barberia.GestionBarberia.DTO.CustomerResponseDTO;
 import com.barberia.GestionBarberia.exception.RecursoNoEncontradoException;
 import com.barberia.GestionBarberia.mapper.CustomerMapper;
 import com.barberia.GestionBarberia.model.Customer;
+import com.barberia.GestionBarberia.model.Rol;
 import com.barberia.GestionBarberia.repository.CustomerRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,12 @@ public class CustomerService implements ICustomerService {
         // 1. Usamos nuestra clase estática para traducir al modelo de Base de Datos
         Customer customerEntity = CustomerMapper.toEntity(dto);
 
+        // Valores que decide el sistema, no el usuario
+        customerEntity.setRol(Rol.CLIENTE);
+        customerEntity.setActivo(true);
+        customerEntity.setPuntosFidelidad(0);
+        customerEntity.setAbandonoDeTurnos(0);
+
         // 2. Guardamos en MySQL (se autogenera el ID)
         Customer customerGuardado = customerRepo.save(customerEntity);
 
@@ -33,7 +40,7 @@ public class CustomerService implements ICustomerService {
     public CustomerResponseDTO buscarPorID(Long id) {
         // 1 y 2: Buscamos pasándole el Long directamente, y si no existe, lanzamos la excepción
         Customer customerEncontrado = customerRepo.findById(id)
-                .orElseThrow(()-> new  RecursoNoEncontradoException("No se encontró el ID: "+ id));
+                .orElseThrow(()-> new  RecursoNoEncontradoException("No se encontró el cliente con el ID: "+ id));
 
         // 3: Si pasó la línea anterior, significa que sí existe.
         // Usamos nuestro Mapper estático para convertir la Entidad en DTO y retornarla.
@@ -45,7 +52,7 @@ public class CustomerService implements ICustomerService {
         // 1. Preguntamos si existe (existsById devuelve un boolean).
         // El símbolo "!" significa "NO". Entonces leemos: "Si NO existe el servicio..."
         if(!customerRepo.existsById(id)){
-            throw new RecursoNoEncontradoException("No se encontró el ID: "+ id);
+            throw new RecursoNoEncontradoException("No se encontró el cliente con el ID: "+ id);
         }
         // 3. Si Java superó el if anterior, significa que sí existe. Procedemos a borrarlo.
         customerRepo.deleteById(id);
@@ -60,10 +67,11 @@ public class CustomerService implements ICustomerService {
     public CustomerResponseDTO actualizarCustomer(Long id, CustomerRequestDTO customerDTO) {
         //buscamos si existe mi customer
         Customer customerEncontrado = customerRepo.findById(id)
-                .orElseThrow(()-> new  RecursoNoEncontradoException("No se encontró el ID: "+ id));
+                .orElseThrow(()-> new  RecursoNoEncontradoException("No se encontró el cliente con el ID: "+ id));
         //Si el ID se encontro, modificamos (settear) los datos:
         customerEncontrado.setNombre(customerDTO.getNombre());
         customerEncontrado.setApellido(customerDTO.getApellido());
+        customerEncontrado.setUsername(customerDTO.getUsername());
         customerEncontrado.setPassword(customerDTO.getPassword());
         customerEncontrado.setTelefono(customerDTO.getTelefono());
         customerEncontrado.setEmail(customerDTO.getEmail());

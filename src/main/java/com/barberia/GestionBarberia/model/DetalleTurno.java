@@ -21,7 +21,7 @@ public class DetalleTurno {
     private Long id;
 
     // Relación hacia el Turno (Cabecera)
-    @ManyToOne
+    @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn(name = "turno_id", nullable = false)
     private Turno turno;
 
